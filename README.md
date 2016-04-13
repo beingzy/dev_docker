@@ -1,1 +1,1 @@
-[postgresql](postgresql/Dockerfile)
+* [postgresql](postgresql/Dockerfile)
