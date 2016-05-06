@@ -5,8 +5,10 @@ MAINTAINER Yi Zhang <beingzy@gmail.com>
 
 LABEL "os"="ubuntu:14.04" "purpose"="Python,R"
 
-# add 
+# prepare the environment for R installation
 RUN sudo sh -c 'echo "deb http://cran.rstudio.com/bin/linux/ubuntu trusty/" >> /etc/apt/sources.list'
+RUN gpg --keyserver keyserver.ubuntu.com --recv-key E084DAB9
+RUN gpg -a --export E084DAB9 | sudo apt-key add -
 
 RUN sudo apt-get -y update --fix-missing
     
@@ -24,19 +26,21 @@ RUN sudo apt-get install -y \
     build-essential \
 	gfortran
 
-RUN sudo apt-get install -y \
-    liblapack-dev \
-    liblapack-doc-man \
-    liblapack-doc \
-    liblapack-pic \
-    liblapack3 \
-    liblapack-test \
-    liblapack3gf \
-    liblapacke \
-    liblapacke-dev
+RUN sudo apt-get install -y liblapack-dev \
+                            liblapack-doc-man \
+                            liblapack-doc \
+                            liblapack-pic \
+                            liblapack3 \
+                            liblapack-test \
+                            liblapack3gf \
+                            liblapacke \
+                            liblapacke-dev
     
-RUN sudo apt-get -y install r-base \
-                            r-base-dev 
+RUN sudo apt-get install -y r-base \
+                            r-base-dev \
+                            libcurl4-gnutls-dev \
+                            libxml2-dev \
+                            libssl-dev
 
 # add project
 ADD . /
@@ -45,4 +49,8 @@ ADD . /
 RUN pip3 install scipy \
                  numpy \
                  scikit-learn \
-                 rpy2
+                 rpy2 \
+                 awscli
+                 
+# install some R packages
+RUN sudo su - -c "R -e \"install.packages(c('shiny', 'devtools'), repos = 'http://cran.rstudio.com/')\""
