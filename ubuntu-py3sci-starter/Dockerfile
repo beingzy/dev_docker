@@ -1,6 +1,12 @@
+# 14.04 ubuntu trusty
 FROM ubuntu:14.04
 
 MAINTAINER Yi Zhang <beingzy@gmail.com>
+
+LABEL "os"="ubuntu:14.04" "purpose"="Python,R"
+
+# add 
+RUN sudo sh -c 'echo "deb http://cran.rstudio.com/bin/linux/ubuntu trusty/" >> /etc/apt/sources.list'
 
 RUN sudo apt-get -y update --fix-missing
     
@@ -28,6 +34,9 @@ RUN sudo apt-get install -y \
     liblapack3gf \
     liblapacke \
     liblapacke-dev
+    
+RUN sudo apt-get -y install r-base \
+                            r-base-dev 
 
 # add project
 ADD . /
@@ -35,4 +44,5 @@ ADD . /
 # install dependency
 RUN pip3 install scipy \
                  numpy \
-                 scikit-learn
+                 scikit-learn \
+                 rpy2
