@@ -45,12 +45,17 @@ RUN sudo apt-get install -y r-base \
 # add project
 ADD . /
 
-# install dependency
-RUN pip3 install scipy \
-                 numpy \
-                 scikit-learn \
-                 rpy2 \
-                 awscli
-                 
+# install scientific computing libraries
+RUN sudo pip3 install scipy \
+                      numpy \
+                      scikit-learn \
+                      rpy2 \
+                      networkx \
+                      tqdm \
+                      awscli \
+                      boto3
+# a more reliable channel to install pandas than pippyth
+RUN sudo apt-get install -y python3-pandas
+
 # install some R packages
 RUN sudo su - -c "R -e \"install.packages(c('shiny', 'devtools'), repos = 'http://cran.rstudio.com/')\""
