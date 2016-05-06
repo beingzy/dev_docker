@@ -11,7 +11,7 @@ RUN gpg --keyserver keyserver.ubuntu.com --recv-key E084DAB9
 RUN gpg -a --export E084DAB9 | sudo apt-key add -
 
 RUN sudo apt-get -y update --fix-missing
-    
+
 RUN apt-get install -y \
     python3-pip \
     python-dev \
@@ -22,7 +22,7 @@ RUN apt-get install -y \
     libxml2-dev \
     libffi-dev
 
-RUN sudo apt-get install -y \ 
+RUN sudo apt-get install -y \
     build-essential \
 	gfortran
 
@@ -35,7 +35,7 @@ RUN sudo apt-get install -y liblapack-dev \
                             liblapack3gf \
                             liblapacke \
                             liblapacke-dev
-    
+
 RUN sudo apt-get install -y r-base \
                             r-base-dev \
                             libcurl4-gnutls-dev \
@@ -46,16 +46,16 @@ RUN sudo apt-get install -y r-base \
 ADD . /
 
 # install scientific computing libraries
-RUN sudo pip3 install scipy \
-                      numpy \
-                      scikit-learn \
+RUN sudo apt-get install -y python3-scipy \
+                            python3-numpy \
+                            python3-pandas
+RUN sudo pip3 install scikit-learn \
                       rpy2 \
                       networkx \
                       tqdm \
                       awscli \
                       boto3
-# a more reliable channel to install pandas than pippyth
-RUN sudo apt-get install -y python3-pandas
+# a more reliable channel to install pandas than pip
 
 # install some R packages
 RUN sudo su - -c "R -e \"install.packages(c('shiny', 'devtools'), repos = 'http://cran.rstudio.com/')\""
