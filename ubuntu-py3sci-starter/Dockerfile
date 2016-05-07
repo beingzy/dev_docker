@@ -49,14 +49,23 @@ RUN sudo apt-get install -y r-base \
 # install scientific computing libraries
 RUN sudo apt-get install -y python3-scipy \
                             python3-numpy \
-                            python3-pandas
+                            python3-pandas \
+                            python3-sqlalchemy
+                            
 RUN sudo pip3 install scikit-learn \
                       rpy2 \
                       networkx \
+                      nltk \
                       tqdm \
                       awscli \
                       boto3
-# a more reliable channel to install pandas than pip
+                      
+RUN sudo pip3 install -U pandas
+# python web stack
+RUN sudo pip3 install flask \
+                      flask-api \
+                      flask-restful \
+                      django
 
 # install some R packages
 RUN sudo su - -c "R -e \"install.packages(c('shiny', 'devtools'), repos = 'http://cran.rstudio.com/')\""
