@@ -1,4 +1,8 @@
 # 14.04 ubuntu trusty
+#
+#
+# this built docker images is available at
+# beingzy/ds-env-py3-r
 FROM ubuntu:14.04
 
 MAINTAINER Yi Zhang <beingzy@gmail.com>
@@ -41,9 +45,6 @@ RUN sudo apt-get install -y r-base \
                             libcurl4-gnutls-dev \
                             libxml2-dev \
                             libssl-dev
-
-# add project
-ADD . /
 
 # install scientific computing libraries
 RUN sudo apt-get install -y python3-scipy \
