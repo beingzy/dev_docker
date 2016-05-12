@@ -58,7 +58,8 @@ RUN sudo pip3 install scikit-learn \
                       nltk \
                       tqdm \
                       awscli \
-                      boto3
+                      boto3 \
+                      alchemy
                       
 RUN sudo pip3 install -U pandas
 # python web stack
